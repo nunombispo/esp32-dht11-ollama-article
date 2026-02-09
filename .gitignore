@@ -1,2 +1,4 @@
 article.md
 outline.md
+.venv/
+.gitignore
