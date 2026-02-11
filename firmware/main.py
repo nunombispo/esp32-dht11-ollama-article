@@ -24,10 +24,10 @@ except ImportError:
 # -----------------------------------------------------------------------------
 # Configuration — set these for your network and gateway
 # -----------------------------------------------------------------------------
-WIFI_SSID = "your-wifi-ssid"
-WIFI_PASS = "your-wifi-password"
+WIFI_SSID = "H369ABF75E6"
+WIFI_PASS = "C79FA965F262"
 GATEWAY_URL = "http://192.168.1.100:8000/describe"
-DHT_PIN = 4
+DHT_PIN = 15
 # 0.96" SSD1306 I2C (128x64)
 OLED_SDA_PIN = 21
 OLED_SCL_PIN = 22
@@ -58,6 +58,7 @@ def http_post_json(url, data):
 def init_display():
     """Init 128x64 SSD1306 over I2C. Returns display or None if unavailable."""
     if ssd1306 is None:
+        print("No screen")
         return None
     try:
         i2c = I2C(0, scl=Pin(OLED_SCL_PIN), sda=Pin(OLED_SDA_PIN), freq=400000)
@@ -93,15 +94,26 @@ def wrap_text(text, cols):
 
 
 def display_update(display, temp_c, humidity, description=None):
-    """Update OLED: line 0 = temp/humidity, rest = description wrapped."""
+    """Update OLED: line 0 = title, line 1 = temp, line 2 = humidity, rest = description wrapped."""
     if display is None:
         return
     display.fill(0)
-    line0 = "T:{:.1f}C H:{:.0f}%".format(temp_c, humidity)
-    display.text(line0, 0, 0)
-    y = 10
+    
+    # Line 0: Title
+    display.text("DHT11 Sensor", 0, 0)
+    
+    # Line 1: Temperature
+    temp_line = "Temp: {:.1f}C".format(temp_c)
+    display.text(temp_line, 0, 10)
+    
+    # Line 2: Humidity
+    humid_line = "Humid: {:.0f}%".format(humidity)
+    display.text(humid_line, 0, 20)
+    
+    # Line 3+: Description
+    y = 30
     if description:
-        for line in wrap_text(description, OLED_COLS)[:OLED_LINES - 2]:
+        for line in wrap_text(description, OLED_COLS)[:OLED_LINES - 3]:
             if y + 8 <= 64:
                 display.text(line, 0, y)
                 y += 10
@@ -198,3 +210,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
