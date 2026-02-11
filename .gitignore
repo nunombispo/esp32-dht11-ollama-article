@@ -1,4 +1,4 @@
-article.md
+article*.md
 outline.md
 .venv/
 .gitignore
