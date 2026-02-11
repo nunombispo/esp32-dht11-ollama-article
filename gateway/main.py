@@ -15,7 +15,7 @@ from pydantic import BaseModel, Field
 # -----------------------------------------------------------------------------
 # Configuration
 # -----------------------------------------------------------------------------
-OLLAMA_BASE_URL = os.getenv("OLLAMA_BASE_URL", "http://127.0.0.1:11434")
+OLLAMA_BASE_URL = os.getenv("OLLAMA_BASE_URL", "http://host.docker.internal:11434")
 OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "deepseek-r1:1.5b")
 OPENMETEO_LAT = os.getenv("OPENMETEO_LAT", "52.09083")
 OPENMETEO_LON = os.getenv("OPENMETEO_LON", "5.12222")
