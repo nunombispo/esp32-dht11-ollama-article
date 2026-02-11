@@ -104,14 +104,14 @@ def display_update(display, temp_c, humidity, description=None):
     
     # Line 1: Temperature
     temp_line = "Temp: {:.1f}C".format(temp_c)
-    display.text(temp_line, 0, 10)
+    display.text(temp_line, 0, 20)
     
     # Line 2: Humidity
     humid_line = "Humid: {:.0f}%".format(humidity)
-    display.text(humid_line, 0, 20)
+    display.text(humid_line, 0, 30)
     
     # Line 3+: Description
-    y = 30
+    y = 40
     if description:
         for line in wrap_text(description, OLED_COLS)[:OLED_LINES - 3]:
             if y + 8 <= 64:
@@ -199,9 +199,9 @@ def main():
             if temp_c is not None:
                 last_temp_c, last_humidity = temp_c, humidity
                 print("Temp: {} °C  Humidity: {} %".format(temp_c, humidity))
-                desc = send_to_gateway(temp_c, humidity)
-                if desc is not None:
-                    last_description = desc
+                #desc = send_to_gateway(temp_c, humidity)
+                #if desc is not None:
+                #    last_description = desc
                 display_update(display, last_temp_c, last_humidity, last_description)
                 last_send = now
 
@@ -210,4 +210,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
