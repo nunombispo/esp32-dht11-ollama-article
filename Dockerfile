@@ -1,5 +1,8 @@
 FROM python:3.13-slim
 
+# Note: On Linux, you may need to run the container with --add-host=host.docker.internal:host-gateway
+# to allow the container to access services running on the host machine
+
 WORKDIR /app
 
 # Copy requirements and install dependencies
